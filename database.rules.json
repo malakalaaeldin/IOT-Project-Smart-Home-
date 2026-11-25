@@ -1,0 +1,46 @@
+{
+  "rules": {
+    "smartHome": {
+      ".read": "auth != null",
+
+      "commands": { ".write": "auth != null" },
+      "status":   { ".write": "auth != null" },
+      "garage":   { ".write": "auth != null" },
+      "window":   { ".write": "auth != null" },
+      "fan":      { ".write": "auth != null" },
+      "lights":   { ".write": "auth != null" },
+      "fire":     { ".write": "auth != null" },
+      "voice":    { ".write": "auth != null" },
+
+      "history": {
+        ".write": "auth != null",
+        ".indexOn": ["t"]
+      },
+
+      "settings": {
+        ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'admin'",
+        "garageDetectCm":         { ".validate": "newData.isNumber() && newData.val() >= 3 && newData.val() <= 200" },
+        "garageCloseDelaySec":    { ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 120" },
+        "clothesLineFollowsRain": { ".validate": "newData.isBoolean()" },
+        "historyIntervalSec":     { ".validate": "newData.isNumber() && newData.val() >= 5 && newData.val() <= 3600" },
+        "$other":                 { ".validate": false }
+      },
+
+      "schedules": {
+        ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'admin'"
+      },
+      "scheduleIndex": {
+        ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'admin'"
+      }
+    },
+
+    "users": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'admin'",
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && (root.child('users').child(auth.uid).child('role').val() === 'admin' || (auth.uid === $uid && newData.child('role').val() === (data.child('role').exists() ? data.child('role').val() : 'user')))",
+        "role": { ".validate": "newData.val() === 'admin' || newData.val() === 'user'" }
+      }
+    }
+  }
+}

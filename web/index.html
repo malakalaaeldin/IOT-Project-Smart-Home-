@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#2A1E16" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <title>Calm Hills Villa · Front desk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Archivo+Narrow:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-garage" viewBox="0 0 24 24"><path d="M3 10.5 12 4l9 6.5V20H3z"/><path d="M7 20v-7h10v7M7 15.5h10M7 18h10"/></symbol>
+      <symbol id="i-window" viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="17" rx="1.5"/><path d="M12 3.5v17M4 12h16"/></symbol>
+      <symbol id="i-rain" viewBox="0 0 24 24"><path d="M7 15.5a4.5 4.5 0 0 1-.4-9A6 6 0 0 1 18 8a3.75 3.75 0 0 1-.5 7.5z"/><path d="m8 18.5-1 2M12.5 18.5l-1 2M17 18.5l-1 2"/></symbol>
+      <symbol id="i-auto" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.7-5.6M20 12a8 8 0 0 1-13.7 5.6"/><path d="M18 3v3.6h-3.6M6 21v-3.6h3.6"/></symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></symbol>
+      <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 17.5h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2v.1h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+      <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 21c-3.9 0-7-2.8-7-6.6C5 10 9.5 8 9.5 3c3 1.6 5 4.6 5 7.4.8-.5 1.4-1.3 1.6-2.4C18 9.6 19 12 19 14.4 19 18.2 15.9 21 12 21z"/></symbol>
+      <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></symbol>
+      <symbol id="i-stop" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1.5"/></symbol>
+      <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12 20 4l-4 16-4-7z"/><path d="m12 13 8-9"/></symbol>
+      <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+      <symbol id="i-muted" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="m16 9.5 5 5M21 9.5l-5 5"/></symbol>
+    </defs>
+  </svg>
+
+  <header class="bar" id="bar">
+    <div class="brand">
+      <strong>Calm Hills Villa</strong>
+      <span>Front desk</span>
+    </div>
+    <p id="deviceStatus" class="pill pill-offline" role="status">ESP32 offline</p>
+    <button type="button" id="logoutBtn" class="bar-btn" hidden>Sign out</button>
+  </header>
+
+  <div id="fireBanner" class="fire-banner" role="alert" hidden>
+    <svg class="ic"><use href="#i-flame"/></svg>
+    <p><strong>Fire detected.</strong> <span id="fireBannerText">The buzzer is sounding.</span></p>
+    <button type="button" id="silenceBtn" class="btn btn-fire">Silence buzzer</button>
+  </div>
+
+  <main>
+    <section id="authPanel" class="auth" aria-labelledby="authTitle">
+      <div class="auth-card">
+        <div class="auth-head">
+          <h1 id="authTitle">Sign in to the front desk</h1>
+          <p>Garage, window, lights and the fire alarm, live from the house.</p>
+        </div>
+        <form id="loginForm" class="auth-form">
+          <label>Email
+            <input id="email" type="email" required autocomplete="username" placeholder="you@example.com" />
+          </label>
+          <label>Password
+            <input id="password" type="password" required autocomplete="current-password" minlength="6" />
+          </label>
+          <p id="authError" class="form-error" role="alert" hidden></p>
+          <div class="auth-actions">
+            <button type="submit" class="btn btn-primary" id="signInBtn">Sign in</button>
+            <button type="button" id="registerBtn" class="btn btn-quiet">Create account</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <div id="dashPanel" class="dash" hidden>
+      <div class="main-col">
+        <section class="board-wrap" aria-labelledby="boardTitle">
+          <div class="section-head">
+            <h2 id="boardTitle">Key board</h2>
+            <p id="boardSummary" class="section-note">Loading the house…</p>
+          </div>
+          <div class="board" id="board">
+            <div class="board-row" role="group" aria-label="Doors and modes">
+              <button type="button" class="tag" data-key="garageOpen" data-state="garage.open" data-no="01" data-on="Open" data-off="Closed" role="switch" aria-checked="false">
+                <span class="hook" aria-hidden="true"></span>
+                <span class="tag-no">No. 01</span>
+                <svg class="ic"><use href="#i-garage"/></svg>
+                <span class="tag-name">Garage</span>
+                <span class="tag-state">Closed</span>
+              </button>
+              <button type="button" class="tag" data-key="windowOpen" data-state="window.open" data-no="02" data-on="Open" data-off="Closed" role="switch" aria-checked="false" id="windowTag">
+                <span class="hook" aria-hidden="true"></span>
+                <span class="tag-no">No. 02</span>
+                <svg class="ic"><use href="#i-window"/></svg>
+                <span class="tag-name">Window</span>
+                <span class="tag-state">Closed</span>
+              </button>
+              <button type="button" class="tag" data-key="autoMode" data-state="garage.autoMode" data-default="true" data-no="03" data-on="On" data-off="Off" role="switch" aria-checked="false">
+                <span class="hook" aria-hidden="true"></span>
+                <span class="tag-no">No. 03</span>
+                <svg class="ic"><use href="#i-auto"/></svg>
+                <span class="tag-name">Garage auto</span>
+                <span class="tag-state">Off</span>
+              </button>
+              <button type="button" class="tag tag-alarm" data-alarm id="alarmTag" aria-label="Fire alarm buzzer" disabled>
+                <span class="hook" aria-hidden="true"></span>
+                <span class="tag-no">No. 04</span>
+                <svg class="ic"><use href="#i-bell"/></svg>
+                <span class="tag-name">Alarm</span>
+                <span class="tag-state">Quiet</span>
+              </button>
+            </div>
+            <div class="board-row board-row-3" role="group" aria-label="General control lights">
+              <button type="button" class="tag" data-key="led1" data-state="lights.led1" data-no="11" data-on="On" data-off="Off" role="switch" aria-checked="false">
+                <span class="hook" aria-hidden="true"></span>
+                <span class="tag-no">No. 11</span>
+                <svg class="ic"><use href="#i-bulb"/></svg>
+                <span class="tag-name">Light 1</span>
+                <span class="tag-state">Off</span>
+              </button>
+              <button type="button" class="tag" data-key="led2" data-state="lights.led2" data-no="12" data-on="On" data-off="Off" role="switch" aria-checked="false">
+                <span class="hook" aria-hidden="true"></span>
+                <span class="tag-no">No. 12</span>
+                <svg class="ic"><use href="#i-bulb"/></svg>
+                <span class="tag-name">Light 2</span>
+                <span class="tag-state">Off</span>
+              </button>
+              <button type="button" class="tag" data-key="led3" data-state="lights.led3" data-no="13" data-on="On" data-off="Off" role="switch" aria-checked="false">
+                <span class="hook" aria-hidden="true"></span>
+                <span class="tag-no">No. 13</span>
+                <svg class="ic"><use href="#i-bulb"/></svg>
+                <span class="tag-name">Light 3</span>
+                <span class="tag-state">Off</span>
+              </button>
+            </div>
+          </div>
+          <p id="boardNotice" class="board-notice" role="status" hidden></p>
+        </section>
+
+        <div class="readings">
+          <section class="reading" aria-labelledby="sensorTitle">
+            <h2 id="sensorTitle">Garage sensor</h2>
+            <p class="reading-value"><span id="distanceValue">—</span> <span class="unit">cm</span></p>
+            <div class="gauge" aria-hidden="true"><span id="distanceBar"></span><i class="gauge-mark" title="Auto-open at 15 cm"></i></div>
+            <p class="reading-note" id="distanceNote">Ultrasonic distance. Auto mode opens the garage at 15 cm or closer.</p>
+          </section>
+          <section class="reading" id="rainCard" aria-labelledby="rainTitle">
+            <h2 id="rainTitle">Rain</h2>
+            <p class="reading-value reading-word" id="rainValue">Dry</p>
+            <p class="reading-note" id="rainNote">The window closes by itself when it rains.</p>
+          </section>
+          <section class="reading" id="fireCard" aria-labelledby="fireTitle">
+            <h2 id="fireTitle">Fire watch</h2>
+            <p class="reading-value reading-word" id="fireMeta">No flame</p>
+            <p class="reading-note" id="buzzerMeta">Buzzer off</p>
+          </section>
+        </div>
+      </div>
+
+      <aside class="desk" aria-labelledby="deskTitle">
+        <div class="desk-head">
+          <h2 id="deskTitle">Voice desk</h2>
+          <button type="button" class="icon-btn" id="muteBtn" aria-pressed="false" aria-label="Mute spoken replies" title="Mute spoken replies">
+            <svg class="ic"><use href="#i-sound"/></svg>
+          </button>
+        </div>
+
+        <div class="bell-zone">
+          <button type="button" class="bell" id="micBtn" aria-label="Start listening">
+            <svg class="ic"><use href="#i-mic"/></svg>
+          </button>
+          <p class="desk-status" id="voiceStatus" aria-live="polite">Ring the bell and speak</p>
+          <div class="mode" role="radiogroup" aria-label="Listening mode">
+            <button type="button" role="radio" aria-checked="true" data-mode="tap">Tap to talk</button>
+            <button type="button" role="radio" aria-checked="false" data-mode="handsfree">Hands-free “Hey Home”</button>
+          </div>
+        </div>
+
+        <ol class="ledger" id="ledger" aria-label="Conversation" aria-live="polite">
+          <li class="ledger-empty">Try “open the garage door”, “close the window”, “turn on lights 1 and 3”, or “is it raining?”</li>
+        </ol>
+        <p class="interim" id="interim" hidden></p>
+
+        <form class="desk-input" id="voiceForm">
+          <label class="sr-only" for="voiceText">Type a command</label>
+          <input id="voiceText" type="text" autocomplete="off" placeholder="Or type: close the window" />
+          <button type="submit" class="icon-btn icon-btn-send" aria-label="Send command"><svg class="ic"><use href="#i-send"/></svg></button>
+        </form>
+        <p class="desk-foot" id="brainStatus">Offline commands</p>
+      </aside>
+    </div>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

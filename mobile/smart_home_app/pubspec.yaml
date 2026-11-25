@@ -1,0 +1,28 @@
+name: smart_home_app
+description: Calm Hills Smart Home — Flutter companion for ESP32 + Firebase
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  firebase_core: ^3.13.0
+  firebase_auth: ^5.5.2
+  firebase_database: ^11.3.4
+  http: ^1.6.0
+  fl_chart: 0.70.2
+  firebase_messaging: ^15.2.10
+  flutter_local_notifications: ^19.5.0
+  shared_preferences: ^2.5.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true

@@ -1,0 +1,29 @@
+﻿{
+  "project_info": {
+    "project_number": "260254281081",
+    "project_id": "calm-hills-smart-home",
+    "storage_bucket": "calm-hills-smart-home.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:260254281081:android:a849201f2f9e96f09d13a8",
+        "android_client_info": {
+          "package_name": "com.calmhills.smarthome"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnMLPJlporey04h78JuM6uqjqiQPTubGs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

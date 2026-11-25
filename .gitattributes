@@ -1,0 +1,2 @@
+firmware/esp32_smart_home/esp32_smart_home.ino filter=stripsecrets
+*.ino text eol=lf

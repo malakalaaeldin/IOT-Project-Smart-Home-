@@ -1,0 +1,43 @@
+# Secrets (real keys/passwords stay on your computer)
+mobile/smart_home_app/secrets.json
+tools/.env
+# The ESP32 Wi-Fi/device passwords are stripped by a git filter (see firmware/README.md)
+
+# Note: google-services.json, lib/firebase_options.dart and web/firebase-config.js are
+# Firebase *client* configs (public by design), committed so the team can build the apps.
+
+# Flutter / Android
+mobile/smart_home_app/.dart_tool/
+mobile/smart_home_app/.flutter-plugins
+mobile/smart_home_app/.flutter-plugins-dependencies
+mobile/smart_home_app/.packages
+mobile/smart_home_app/build/
+mobile/smart_home_app/.idea/
+mobile/smart_home_app/*.iml
+mobile/smart_home_app/android/.gradle/
+mobile/smart_home_app/android/.kotlin/
+mobile/smart_home_app/android/local.properties
+mobile/smart_home_app/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+mobile/smart_home_app/ios/Pods/
+mobile/smart_home_app/ios/.symlinks/
+**/.cxx/
+
+# Firebase / Node
+.firebase/
+node_modules/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+*.log
+
+# Design tool working files
+.impeccable/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Arduino build artifacts
+**/build/
